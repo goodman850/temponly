@@ -18,6 +18,23 @@ IZIN=$(curl -k https://titanic.icu/apiV2/api.php?myip=$MYIP )
 
 
 clear
+if [ ! -f "/etc/xray/domain" ]; then
+ clear
+echo -e "========================="
+read -rp " Domain/Host ro mizni?  : " -e domain
+echo -e "========================="
+echo -e "${success} Please wait..."
+mkdir -p /usr/bin/xray
+mkdir -p /etc/xray
+echo $domain >> /etc/xray/domain
+echo $domain >> /root/domain
+echo "IP=$domain" >> /var/lib/onlynetstorevpn/ipvps.conf
+echo "none" >> /var/lib/onlynetstorevpn/cfndomain
+chmod +x /etc/xray/domain
+chmod +x /root/domain
+sleep 1
+
+fi
 
 domain=$(cat /etc/xray/doamin)
 
