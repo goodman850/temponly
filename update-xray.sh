@@ -24,7 +24,43 @@ echo -e "${NC}${LIGHT}Telegram : https://t.me/OnlyNet"
 #exit 0
 fi
 clear
-domain=$(cat /etc/xray/domain)
+if [ ! -f "/etc/xray/doamin" ]; then
+
+fi
+domain=$(cat /etc/xray/doamin)
+if [ ! -f "/usr/local/bin/xray" ]; then
+
+    apt install curl socat xz-utils wget apt-transport-https gnupg gnupg2 gnupg1 dnsutils lsb-release -y
+    apt install socat cron bash-completion ntpdate -y
+    ntpdate pool.ntp.org
+    apt -y install chrony
+    timedatectl set-ntp true
+    systemctl enable chronyd && systemctl restart chronyd
+    systemctl enable chrony && systemctl restart chrony
+    timedatectl set-timezone Asia/Tehran
+    chronyc sourcestats -v
+    chronyc tracking -v
+    latest_version="$(curl -s https://api.github.com/repos/XTLS/Xray-core/releases | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
+    # Installation Xray Core
+    xraycore_link="https://github.com/XTLS/Xray-core/releases/download/v$latest_version/xray-linux-64.zip"
+
+    # Make Main Directory
+    rm -rf /usr/bin/xray
+    rm -rf /usr/local/bin/xray
+    rm -rf /etc/xray
+    rm -rf /var/log/xray
+
+    mkdir -p /usr/bin/xray
+    mkdir -p /etc/xray
+    mkdir -p /var/log/xray/
+    # Unzip Xray Linux 64
+    cd $(mktemp -d)
+    curl -sL "$xraycore_link" -o xray.zip
+    unzip -q xray.zip && rm -rf xray.zip
+    mv xray /usr/local/bin/xray
+    chmod +x /usr/local/bin/xray
+fi
+
 rm -rf /var/log/xray/
 mkdir -p /var/log/xray/
 touch /var/log/xray/access.log
