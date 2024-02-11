@@ -15,19 +15,12 @@ LIGHT='\033[0;37m'
 MYIP=$(wget -qO- ipinfo.io/ip);
 echo "Checking VPS"
 IZIN=$(curl -k https://titanic.icu/apiV2/api.php?myip=$MYIP )
-if [ $MYIP == $IZIN ]; then
-echo -e "${NC}${GREEN}Permission Accepted...${NC}"
-else
-echo -e "${NC}${RED}Permission Denied!${NC}";
-echo -e "${NC}${LIGHT}Please Contact Admin!!"
-echo -e "${NC}${LIGHT}Telegram : https://t.me/OnlyNet"
-#exit 0
-fi
-clear
-if [ ! -f "/etc/xray/doamin" ]; then
 
-fi
+
+clear
+
 domain=$(cat /etc/xray/doamin)
+
 if [ ! -f "/usr/local/bin/xray" ]; then
 
     apt install curl socat xz-utils wget apt-transport-https gnupg gnupg2 gnupg1 dnsutils lsb-release -y

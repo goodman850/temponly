@@ -220,17 +220,7 @@ apt-get upgrade -y
 apt update
 apt install -y bzip2 gzip coreutils screen curl unzip
 
-# Download the setup.sh script
-wget https://raw.githubusercontent.com/goodman850/titanic-pack1/master/setup.sh
 
-# Make the setup.sh script executable
-chmod +x setup.sh
-
-# Remove any Windows-style line endings
-sed -i -e 's/\r$//' setup.sh
-
-# Create a new screen session and run setup.sh
-screen -S setup ./setup.sh
 
 
 
